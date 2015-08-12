@@ -234,7 +234,7 @@ class CmpResultParser {
         }
 
         d.setName(p.getName());
-        d.setValue(Difference.valueOf(res.getDiff().getName()));
+        d.setValue(Difference.valueOf(res.getDiff().name()));
         d.addChildren(parseCmpResultInfoList(res.getChildren(), role, namespace));
 
         return d;

@@ -255,7 +255,7 @@ public class CompatibilityServiceImpl implements CompatibilityService {
         CmpResultParser parser = new CmpResultParser(compatibilityFactory);
         List<Diff> diffDetails = parser.extractDiffDetails(res);
 
-        Compatibility comp = compatibilityFactory.createCompatibility(null, upperIdentity.symbolicName, upperVersion, lowerIdentity.symbolicName, lowerVersion, Difference.valueOf(diffValue.getName()), diffDetails, Contract.SYNTAX);
+        Compatibility comp = compatibilityFactory.createCompatibility(null, upperIdentity.symbolicName, upperVersion, lowerIdentity.symbolicName, lowerVersion, Difference.valueOf(diffValue.name()), diffDetails, Contract.SYNTAX);
         comp = compatibilityDao.saveCompatibility(comp);
         logger.debug("Compatibility saved successfully with id: {}", comp.getId());
         return comp;

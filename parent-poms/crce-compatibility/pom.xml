@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <relativePath>../../pom.xml</relativePath>
+        <groupId>cz.zcu.kiv.crce</groupId>
+        <artifactId>crce-jacc-plugins</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>crce-compatibility-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>2.1.0-SNAPSHOT</version>
+
+    <name>CRCE - Compatibility Implementation Parent POM</name>
+
+    <properties>
+        <bundle.symbolicName>${namespace}.compatibility.impl</bundle.symbolicName>
+        <bundle.namespace>${namespace}.compatibility</bundle.namespace>
+    </properties>
+
+    <modules>
+        <module>../../crce-compatibility-impl</module>
+        <module>../../crce-compatibility-integration-tests</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- CRCE core dependencies -->
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-core</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <!-- CRCE dependencies -->
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-compatibility-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-compatibility-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-compatibility-dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-compatibility-dao-mongodb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-metadata-osgi-bundle</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>crce-vo</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+            <!-- KIV dependencies -->
+
+            <dependency>
+                <groupId>cz.zcu.kiv.jacc</groupId>
+                <artifactId>types-cmp</artifactId>
+                <version>1.0.3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.jacc</groupId>
+                <artifactId>javatypes</artifactId>
+                <version>1.0.3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.jacc</groupId>
+                <artifactId>javatypes-cmp</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.jacc</groupId>
+                <artifactId>javatypes-loader</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.obcc</groupId>
+                <artifactId>bundle-types</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.obcc</groupId>
+                <artifactId>bundle-loader</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>cz.zcu.kiv.obcc</groupId>
+                <artifactId>bundle-cmp</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>
