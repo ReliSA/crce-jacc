@@ -1,6 +1,6 @@
 ### CRCE ###
-/modules/conf/
-/modules/runner/
+/conf/
+/runner/
 
 ### Maven ###
 target/
