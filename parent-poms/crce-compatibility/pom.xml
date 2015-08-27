@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../crce-jacc-plugins/pom.xml</relativePath>
         <groupId>cz.zcu.kiv.crce</groupId>
         <artifactId>crce-jacc-plugins</artifactId>
         <version>1.0.0-SNAPSHOT</version>
@@ -35,6 +35,7 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>crce-core</artifactId>
                 <version>${project.version}</version>
+                <scope>provided</scope>
                 <type>pom</type>
             </dependency>
 
@@ -71,63 +72,11 @@
                 <version>${project.version}</version>
             </dependency>
 
-
-            <!-- KIV dependencies -->
-
+            <!-- JaCC -->
             <dependency>
-                <groupId>cz.zcu.kiv.jacc</groupId>
-                <artifactId>types-cmp</artifactId>
-                <version>1.0.3</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.jacc</groupId>
-                <artifactId>javatypes</artifactId>
-                <version>1.0.3</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.jacc</groupId>
-                <artifactId>javatypes-cmp</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.jacc</groupId>
-                <artifactId>javatypes-loader</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.obcc</groupId>
-                <artifactId>bundle-types</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.obcc</groupId>
-                <artifactId>bundle-loader</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>cz.zcu.kiv.obcc</groupId>
-                <artifactId>bundle-cmp</artifactId>
-                <version>1.0.3</version>
+                <groupId>cz.zcu.kiv.crce</groupId>
+                <artifactId>crce-jacc-dependencies</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
         </dependencies>

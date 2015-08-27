@@ -44,32 +44,8 @@
         <!-- KIV dependencies -->
 
         <dependency>
-            <groupId>cz.zcu.kiv.jacc</groupId>
-            <artifactId>types-cmp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.jacc</groupId>
-            <artifactId>javatypes</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.jacc</groupId>
-            <artifactId>javatypes-cmp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.jacc</groupId>
-            <artifactId>javatypes-loader</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.obcc</groupId>
-            <artifactId>bundle-types</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.obcc</groupId>
-            <artifactId>bundle-loader</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cz.zcu.kiv.obcc</groupId>
-            <artifactId>bundle-cmp</artifactId>
+            <groupId>cz.zcu.kiv.crce</groupId>
+            <artifactId>crce-jacc-dependencies</artifactId>
         </dependency>
 
     </dependencies>
