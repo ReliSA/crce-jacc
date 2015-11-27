@@ -10,9 +10,11 @@
     <packaging>bundle</packaging>
 
     <properties>
+        <jacc.version>1.0.8</jacc.version>
+        <obcc.version>1.0.3</obcc.version>
         <namespace>cz.zcu.kiv.crce</namespace>
         <bundle.symbolicName>${bundle.namespace}.${artifactId}</bundle.symbolicName>
-        <bundle.namespace>${namespace}.jacc</bundle.namespace>
+        <bundle.namespace>${namespace}.jacc.deps</bundle.namespace>
     </properties>
 
     <repositories>
@@ -48,6 +50,7 @@
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Embed-Dependency>groupId=cz.zcu.kiv.jacc|cz.zcu.kiv.obcc</Embed-Dependency>
                         <_exportcontents>cz.zcu.kiv.jacc.*;cz.zcu.kiv.typescmp.*;cz.zcu.kiv.obcc.*</_exportcontents>
+                        <_include>osgi.bnd</_include>
                     </instructions>
                 </configuration>
             </plugin>
@@ -62,7 +65,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.jacc</groupId>
             <artifactId>types-cmp</artifactId>
-            <version>1.0.3</version>
+            <version>${jacc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -81,7 +84,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.jacc</groupId>
             <artifactId>javatypes</artifactId>
-            <version>1.0.3</version>
+            <version>${jacc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -100,7 +103,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.jacc</groupId>
             <artifactId>javatypes-cmp</artifactId>
-            <version>1.0.3</version>
+            <version>${jacc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -119,7 +122,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.jacc</groupId>
             <artifactId>javatypes-loader</artifactId>
-            <version>1.0.3</version>
+            <version>${jacc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -138,7 +141,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.obcc</groupId>
             <artifactId>bundle-types</artifactId>
-            <version>1.0.3</version>
+            <version>${obcc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -157,7 +160,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.obcc</groupId>
             <artifactId>bundle-loader</artifactId>
-            <version>1.0.3</version>
+            <version>${obcc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -176,7 +179,7 @@
         <dependency>
             <groupId>cz.zcu.kiv.obcc</groupId>
             <artifactId>bundle-cmp</artifactId>
-            <version>1.0.3</version>
+            <version>${obcc.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
@@ -243,7 +246,12 @@
             <version>2.0</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
