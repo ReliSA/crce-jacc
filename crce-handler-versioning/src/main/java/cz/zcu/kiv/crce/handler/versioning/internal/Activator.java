@@ -6,8 +6,6 @@ import org.osgi.framework.BundleContext;
 
 import cz.zcu.kiv.osgi.versionGenerator.service.VersionService;
 
-import cz.zcu.kiv.crce.compatibility.service.CompatibilityService;
-import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
 import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
 import cz.zcu.kiv.crce.metadata.indexer.ResourceIndexerService;
@@ -36,14 +34,6 @@ public class Activator extends DependencyActivatorBase {
                 .add(createServiceDependency().setRequired(true).setService(MetadataService.class))
         );
 
-        manager.add(createComponent()
-                .setInterface(services, null)
-                .setImplementation(CompatibilityActionHandler.class)
-                .add(createServiceDependency().setRequired(true).setService(TaskRunnerService.class))
-                .add(createServiceDependency().setRequired(true).setService(CompatibilityService.class))
-                .add(createServiceDependency().setRequired(true).setService(MetadataService.class))
-                .add(createServiceDependency().setRequired(true).setService(ResourceDAO.class))
-        );
     }
 
     @Override
