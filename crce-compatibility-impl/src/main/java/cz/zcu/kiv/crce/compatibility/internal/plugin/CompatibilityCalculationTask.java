@@ -1,11 +1,9 @@
-package cz.zcu.kiv.crce.handler.versioning.internal;
+package cz.zcu.kiv.crce.compatibility.internal.plugin;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cz.zcu.kiv.crce.compatibility.internal.Activator;
 import cz.zcu.kiv.crce.compatibility.service.CompatibilityService;
 import cz.zcu.kiv.crce.concurrency.model.Task;
 import cz.zcu.kiv.crce.metadata.Resource;
@@ -52,21 +50,15 @@ public class CompatibilityCalculationTask extends Task<Object> {
     }
 
     private CompatibilityService getCompatibilityService() {
-        return getService(CompatibilityService.class);
+        return Activator.instance().getCompatibilityService();
     }
 
     private MetadataService getMetadataService() {
-        return getService(MetadataService.class);
+        return Activator.instance().getMetadataService();
     }
 
     private ResourceDAO getResourceDao() {
-        return getService(ResourceDAO.class);
+        return Activator.instance().getResourceDAO();
     }
 
-    private <S> S getService(Class<S> clazz) {
-        // get bundle instance via the OSGi Framework Util class
-        BundleContext ctx = FrameworkUtil.getBundle(CompatibilityCalculationTask.class).getBundleContext();
-        ServiceReference serviceReference = ctx.getServiceReference(clazz.getName());
-        return clazz.cast(ctx.getService(serviceReference));
-    }
 }

@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import cz.zcu.kiv.jacc.javatypes.HasName;
 import cz.zcu.kiv.obcc.bundletypes.JOSGiBundle;
 import cz.zcu.kiv.typescmp.CmpResult;
-import cz.zcu.kiv.typescmp.CmpResultInfo;
+import cz.zcu.kiv.typescmp.CmpResultNode;
 
 import cz.zcu.kiv.crce.compatibility.CompatibilityFactory;
 import cz.zcu.kiv.crce.compatibility.Diff;
@@ -66,7 +66,7 @@ class CmpResultParser {
 
         if (res != null) {
             List<Diff> tmp;
-            for (CmpResultInfo info : res.getChildren()) {
+            for (CmpResultNode info : res.getChildren()) {
                 tmp = parseRootCmpResultInfo(info);
                 if (tmp != null) {
                     topDiffs.addAll(tmp);
@@ -84,7 +84,7 @@ class CmpResultParser {
      * @param info
      * @return
      */
-    private List<Diff> parseRootCmpResultInfo(CmpResultInfo info) {
+    private List<Diff> parseRootCmpResultInfo(CmpResultNode info) {
         DifferenceRole role;
         String namespace;
         switch (info.getContentCode()) {
@@ -120,11 +120,11 @@ class CmpResultParser {
      * @param namespace parent namespace
      * @return
      */
-    private List<Diff> parseCmpResultInfoList(List<CmpResultInfo> infos, DifferenceRole role, String namespace) {
+    private List<Diff> parseCmpResultInfoList(List<CmpResultNode> infos, DifferenceRole role, String namespace) {
         List<Diff> diffs = new ArrayList<>(infos.size());
 
         List<Diff> tmp;
-        for (CmpResultInfo i : infos) {
+        for (CmpResultNode i : infos) {
             tmp = parseContainerCmpResultInfo(i, role, namespace);
             if (tmp != null) {
                 diffs.addAll(tmp);
@@ -142,7 +142,7 @@ class CmpResultParser {
      * @param namespace parent namespace
      * @return
      */
-    private List<Diff> parseContainerCmpResultInfo(CmpResultInfo i, DifferenceRole role, String namespace) {
+    private List<Diff> parseContainerCmpResultInfo(CmpResultNode i, DifferenceRole role, String namespace) {
         CmpResult<?> res = i.getResult();
         if (res.getDiff() == cz.zcu.kiv.typescmp.Difference.NON) {
             return null;
@@ -152,7 +152,7 @@ class CmpResultParser {
 
         Diff tmp;
         switch (i.getContentCode()) {
-            case "cmp.child.osgi.package.type":
+            case "cmp.child.osgi.package":
 
                 if (res.getChildren() != null && !res.getChildren().isEmpty()) {
                     ret.addAll(parseCmpResultInfoList(res.getChildren(), role, namespace));
@@ -190,7 +190,7 @@ class CmpResultParser {
      * @param namespace parent namespace
      * @return
      */
-    private Diff parseCmpResultInfo(CmpResultInfo i, DifferenceRole role, String namespace) {
+    private Diff parseCmpResultInfo(CmpResultNode i, DifferenceRole role, String namespace) {
         CmpResult<?> res = i.getResult();
         if (res.getDiff() == cz.zcu.kiv.typescmp.Difference.NON) {
             return null;
@@ -212,7 +212,7 @@ class CmpResultParser {
 
         switch (i.getContentCode()) {
             case "cmp.child.package":
-            case "cmp.child.osgi.package.type": //in cases where the whole package is added in revision
+            case "cmp.child.osgi.package": //in cases where the whole package is added in revision
                 d.setNamespace(namespace);
                 d.setRole(role);
                 d.setLevel(DifferenceLevel.PACKAGE);

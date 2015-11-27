@@ -1,4 +1,4 @@
-package cz.zcu.kiv.crce.handler.versioning.internal;
+package cz.zcu.kiv.crce.compatibility.internal.plugin;
 
 import java.util.List;
 
@@ -73,14 +73,13 @@ public class CompatibilityActionHandler extends AbstractActionHandler {
         return resources;
     }
 
+    /**
+     * TODO this might return false in certain cases.
+     * TODO implementation is part of the discussion on resource coordinates
+     * @param res
+     * @return
+     */
     private boolean versionable(Resource res) {
-        List<String> categories = metadataService.getCategories(res);
-        for (int i = 0; i < categories.size(); i++) {
-            if (VersioningActionHandler.CATEGORY_VERSIONED.equals(categories.get(i))) {
-                return true;
-            }
-        }
-
-        return false;
+        return res != null;
     }
 }

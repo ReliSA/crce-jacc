@@ -6,19 +6,48 @@ import org.osgi.framework.BundleContext;
 
 import cz.zcu.kiv.crce.compatibility.CompatibilityFactory;
 import cz.zcu.kiv.crce.compatibility.dao.CompatibilityDao;
+import cz.zcu.kiv.crce.compatibility.internal.plugin.CompatibilityActionHandler;
 import cz.zcu.kiv.crce.compatibility.internal.service.CompatibilityServiceImpl;
 import cz.zcu.kiv.crce.compatibility.service.CompatibilitySearchService;
 import cz.zcu.kiv.crce.compatibility.service.CompatibilityService;
+import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
+import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
+import cz.zcu.kiv.crce.plugin.Plugin;
 import cz.zcu.kiv.crce.repository.Store;
+import cz.zcu.kiv.crce.repository.plugins.ActionHandler;
 
 /**
  * Date: 17.11.13
  *
  * @author Jakub Danek
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "UWF_UNWRITTEN_FIELD", justification = "Injected by dependency manager.")
 public class Activator extends DependencyActivatorBase {
+
+    private static Activator instance;
+
+    public static Activator instance() {
+        return instance;
+    }
+
+    //injected by DI
+    private CompatibilityService compatibilityService;
+    private MetadataService metadataService;
+    private ResourceDAO resourceDAO;
+
+    public CompatibilityService getCompatibilityService() {
+        return compatibilityService;
+    }
+
+    public MetadataService getMetadataService() {
+        return metadataService;
+    }
+
+    public ResourceDAO getResourceDAO() {
+        return resourceDAO;
+    }
 
     /**
      * Initialize the dependency manager. Here you can add all components and their dependencies.
@@ -31,7 +60,11 @@ public class Activator extends DependencyActivatorBase {
      * @throws Exception if the initialization fails
      */
     @Override
+    @edu.umd.cs.findbugs.annotations
+            .SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "Dependency manager workaround.")
     public void init(BundleContext context, DependencyManager manager) throws Exception {
+        instance = this;
+
         manager.add(createComponent()
                 .setInterface(CompatibilityFactory.class.getName(), null)
                 .setImplementation(CompatibilityFactoryImpl.class));
@@ -46,6 +79,24 @@ public class Activator extends DependencyActivatorBase {
                 .add(createServiceDependency().setService(Store.class).setRequired(true))
                 .add(createServiceDependency().setService(MetadataFactory.class).setRequired(true))
                 .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
+        );
+
+        String pluginServices[] = {Plugin.class.getName(), ActionHandler.class.getName()};
+        manager.add(createComponent()
+                        .setInterface(pluginServices, null)
+                        .setImplementation(CompatibilityActionHandler.class)
+                        .add(createServiceDependency().setRequired(true).setService(TaskRunnerService.class))
+                        .add(createServiceDependency().setRequired(true).setService(CompatibilityService.class))
+                        .add(createServiceDependency().setRequired(true).setService(MetadataService.class))
+                        .add(createServiceDependency().setRequired(true).setService(ResourceDAO.class))
+        );
+
+        //create this component, inject dependencies
+        manager.add(createComponent()
+                        .setImplementation(this)
+                        .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
+                        .add(createServiceDependency().setService(ResourceDAO.class).setRequired(true))
+                        .add(createServiceDependency().setService(CompatibilityService.class).setRequired(true))
         );
     }
 

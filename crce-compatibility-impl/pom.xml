@@ -40,6 +40,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>crce-metadata-osgi-bundle</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>crce-concurrency</artifactId>
+        </dependency>
 
         <!-- KIV dependencies -->
 
