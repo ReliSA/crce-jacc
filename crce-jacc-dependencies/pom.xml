@@ -10,11 +10,12 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <jacc.version>1.0.8</jacc.version>
-        <obcc.version>1.0.3</obcc.version>
+        <jacc.version>1.0.6</jacc.version>
+        <obcc.version>1.0.4</obcc.version>
         <namespace>cz.zcu.kiv.crce</namespace>
         <bundle.symbolicName>${bundle.namespace}.${artifactId}</bundle.symbolicName>
         <bundle.namespace>${namespace}.jacc.deps</bundle.namespace>
+        <version.org.osgi>4.3.1</version.org.osgi>
     </properties>
 
     <repositories>
@@ -251,6 +252,22 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>${version.org.osgi}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>${version.org.osgi}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
