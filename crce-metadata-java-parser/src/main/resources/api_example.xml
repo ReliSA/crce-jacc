@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability namespace="crce.api.java.package">
+    <attribute name="name" value="cz.zcu.kiv"/>
+
+    <!-- repeat for all classes in the package -->
+    <capability namespace='crce.api.java.class' uuid="...">
+        <attribute name="name" value="MyClass"/>
+        <attribute name="parents" value="cz.zcu.kiv.MyParentClass, cz.zcu.kiv.MySuperInterface" type="list"/>
+        <attribute name="static" value="1"/>
+        <attribute name="abstract" value="0"/>
+        <attribute name="interface" value="0"/>
+        <attribute name="annotation" value="0"/>
+        <attribute name="enum" value="0"/>
+        <attribute name="final" value="1"/>
+
+        <!-- repeat for all methods exported by the class -->
+        <capability namespace="crce.api.java.method" uuid="...">
+            <attribute name="name" value="myMethod"/>
+            <attribute name="abstract" value="0"/>
+            <attribute name="final" value="1"/>
+            <attribute name="static" value="0"/>
+            <attribute name="synchronized" value="1"/>
+            <attribute name="returnType" value="java.lang.Double"/>
+            <attribute name="paramTypes" value="java.lang.Double, java.lang.Integer[]" type="list"/>
+            <attribute name="exceptions" value="cz.zcu.kiv.exceptions.CustomException" type="list"/>
+        </capability>
+
+        <!-- repeat for all fields exported by the class -->
+        <capability namespace="crce.api.java.field" uuid="...">
+            <attribute name="name" value="myAttribute"/>
+            <attribute name="final" value="1"/>
+            <attribute name="static" value="0"/>
+            <attribute name="volatile" value="1"/>
+            <attribute name="type" value="java.lang.Double"/>
+        </capability>
+
+        <!-- inner class -->
+        <capability namespace='crce.api.java.class.inner' uuid="...">
+            <!-- same as outer class for API check purposes -->
+        </capability>
+
+    </capability>
+</capability>
