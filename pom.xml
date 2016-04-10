@@ -72,6 +72,10 @@
     </build>
 
     <modules>
+        <module>parent-poms/crce-jacc-plugins</module>
+        <module>parent-poms/crce-compatibility</module>
+        <module>crce-jacc-dependencies</module>
+        <module>crce-metadata-java-parser</module>
         <module>provision-jacc</module>
     </modules>
 

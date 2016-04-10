@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cz.zcu.kiv.crce</groupId>
+        <artifactId>crce-target</artifactId>
+        <version>2.1.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>crce-jacc-target</artifactId>
+    <packaging>pom</packaging>
+
+    <name>CRCE - JaCC Target</name>
+
+    <properties>
+        <pax.version>3.0.3</pax.version>
+    </properties>
+
+    <!--
+        Scope of dependencies currently handles only placement of the artifact, but not the transitive resolution:
+        - runtime: artifact is placed to 'crce-bundles' folder,
+        - provided: artifact is placed to 'required-bundles' folder.
+
+        This behaviour will be redesigned in the next release after cleanup and stabilisation of dependencies.
+        Temporarily declared transitive not directly used dependencies have fixed version in this POM (not in shared dependency management).
+    -->
+    <dependencies>
+
+        <!-- CRCE -->
+
+
+        <!-- crce jacc -->
+       <dependency>
+            <groupId>cz.zcu.kiv.crce</groupId>
+            <artifactId>crce-compatibility-impl</artifactId>
+            <version>2.1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cz.zcu.kiv.crce</groupId>
+            <artifactId>crce-jacc-dependencies</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.jacc</groupId>
+                    <artifactId>javatypes</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.jacc</groupId>
+                    <artifactId>javatypes-cmp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.jacc</groupId>
+                    <artifactId>javatypes-loader</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.jacc</groupId>
+                    <artifactId>types-cmp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.obcc</groupId>
+                    <artifactId>bundle-cmp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.obcc</groupId>
+                    <artifactId>bundle-loader</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cz.zcu.kiv.obcc</groupId>
+                    <artifactId>bundle-types</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-httpclient</groupId>
+                    <artifactId>commons-httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>oro</groupId>
+                    <artifactId>oro</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>cz.zcu.kiv.crce</groupId>
+            <artifactId>crce-metadata-java-parser</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>create-target</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                            <archiveBaseDirectory>${project.outputDirectory}</archiveBaseDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
