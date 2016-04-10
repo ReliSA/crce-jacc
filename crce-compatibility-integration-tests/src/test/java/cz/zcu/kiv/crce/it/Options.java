@@ -243,6 +243,16 @@ public class Options {
         public static MavenArtifactProvisionOption maven(String artifactId) {
             return Options.mavenBundle("cz.zcu.kiv.crce", artifactId);
         }
+
+        public static Option jaccDeps() {
+            return composite(
+                    maven("crce-jacc-dependencies"),
+                    mavenBundle("com.google.inject", "guice"),
+                    mavenBundle("org.apache.servicemix.bundles", "org.apache.servicemix.bundles.aopalliance"),
+                    mavenBundle("org.apache.commons", "commons-vfs2"),
+                    mavenBundle("org.ow2.asm", "asm-all")
+            );
+        }
     }
 
     private static MavenArtifactProvisionOption mavenBundle(String groupId, String artifactId) {
