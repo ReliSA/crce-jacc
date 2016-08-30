@@ -7,7 +7,7 @@ import org.osgi.framework.BundleContext;
 import cz.zcu.kiv.osgi.versionGenerator.service.VersionService;
 
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
-import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
+import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.indexer.ResourceIndexerService;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.plugin.Plugin;
@@ -28,7 +28,7 @@ public class Activator extends DependencyActivatorBase {
                 .setInterface(services, null)
                 .setImplementation(VersioningActionHandler.class)
                 .add(createServiceDependency().setRequired(true).setService(VersionService.class))
-                .add(createServiceDependency().setRequired(true).setService(ResourceDAO.class))
+                .add(createServiceDependency().setRequired(true).setService(MetadataDao.class))
                 .add(createServiceDependency().setRequired(true).setService(ResourceIndexerService.class))
                 .add(createServiceDependency().setRequired(true).setService(MetadataFactory.class))
                 .add(createServiceDependency().setRequired(true).setService(MetadataService.class))

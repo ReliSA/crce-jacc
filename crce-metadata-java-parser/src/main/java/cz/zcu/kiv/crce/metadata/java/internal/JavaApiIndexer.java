@@ -11,7 +11,7 @@ import cz.zcu.kiv.jacc.loader.JClassLoaderFacade;
 
 import cz.zcu.kiv.crce.metadata.Capability;
 import cz.zcu.kiv.crce.metadata.Resource;
-import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
+import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.parser.JavaMetadataParser;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.repository.Store;
@@ -30,7 +30,7 @@ public class JavaApiIndexer extends AbstractActionHandler {
     private JClassLoaderFacade classLoader;
     private JavaMetadataParser metadataParser; //DI
     private MetadataService metadataService; //DI
-    private ResourceDAO resourceDAO; //DI
+    private MetadataDao resourceDAO; //DI
 
     public JavaApiIndexer() {
         classLoader = JClassLoaderFacade.JAR_MEMORY_FACADE;

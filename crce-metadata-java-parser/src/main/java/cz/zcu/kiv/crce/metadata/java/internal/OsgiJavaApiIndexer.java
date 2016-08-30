@@ -16,7 +16,7 @@ import cz.zcu.kiv.obcc.loader.impl.JOSGiBundleLoaderImpl;
 
 import cz.zcu.kiv.crce.metadata.Capability;
 import cz.zcu.kiv.crce.metadata.Resource;
-import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
+import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.parser.JavaMetadataParser;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.repository.Store;
@@ -35,7 +35,7 @@ public class OsgiJavaApiIndexer extends AbstractActionHandler {
     private JOSGiBundleLoader bundleLoader;
     private JavaMetadataParser metadataParser; //DI
     private MetadataService metadataService; //DI
-    private ResourceDAO resourceDAO; // DI
+    private MetadataDao resourceDAO; // DI
 
     public OsgiJavaApiIndexer() {
         this.bundleLoader = new JOSGiBundleLoaderImpl(JClassLoaderCreator.JAR_MEMORY_LOADER, BundleMetadataReaderCreator.JAR_FILE_READER);

@@ -12,7 +12,7 @@ import cz.zcu.kiv.crce.compatibility.service.CompatibilitySearchService;
 import cz.zcu.kiv.crce.compatibility.service.CompatibilityService;
 import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
-import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
+import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.plugin.Plugin;
 import cz.zcu.kiv.crce.repository.Store;
@@ -35,7 +35,7 @@ public class Activator extends DependencyActivatorBase {
     //injected by DI
     private CompatibilityService compatibilityService;
     private MetadataService metadataService;
-    private ResourceDAO resourceDAO;
+    private MetadataDao resourceDAO;
 
     public CompatibilityService getCompatibilityService() {
         return compatibilityService;
@@ -45,7 +45,7 @@ public class Activator extends DependencyActivatorBase {
         return metadataService;
     }
 
-    public ResourceDAO getResourceDAO() {
+    public MetadataDao getResourceDAO() {
         return resourceDAO;
     }
 
@@ -88,14 +88,14 @@ public class Activator extends DependencyActivatorBase {
                         .add(createServiceDependency().setRequired(true).setService(TaskRunnerService.class))
                         .add(createServiceDependency().setRequired(true).setService(CompatibilityService.class))
                         .add(createServiceDependency().setRequired(true).setService(MetadataService.class))
-                        .add(createServiceDependency().setRequired(true).setService(ResourceDAO.class))
+                        .add(createServiceDependency().setRequired(true).setService(MetadataDao.class))
         );
 
         //create this component, inject dependencies
         manager.add(createComponent()
                         .setImplementation(this)
                         .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
-                        .add(createServiceDependency().setService(ResourceDAO.class).setRequired(true))
+                        .add(createServiceDependency().setService(MetadataDao.class).setRequired(true))
                         .add(createServiceDependency().setService(CompatibilityService.class).setRequired(true))
         );
     }

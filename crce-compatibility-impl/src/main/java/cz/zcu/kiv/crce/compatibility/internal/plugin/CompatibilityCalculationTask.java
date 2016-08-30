@@ -7,7 +7,7 @@ import cz.zcu.kiv.crce.compatibility.internal.Activator;
 import cz.zcu.kiv.crce.compatibility.service.CompatibilityService;
 import cz.zcu.kiv.crce.concurrency.model.Task;
 import cz.zcu.kiv.crce.metadata.Resource;
-import cz.zcu.kiv.crce.metadata.dao.ResourceDAO;
+import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 
 /**
@@ -57,7 +57,7 @@ public class CompatibilityCalculationTask extends Task<Object> {
         return Activator.instance().getMetadataService();
     }
 
-    private ResourceDAO getResourceDao() {
+    private MetadataDao getResourceDao() {
         return Activator.instance().getResourceDAO();
     }
 
