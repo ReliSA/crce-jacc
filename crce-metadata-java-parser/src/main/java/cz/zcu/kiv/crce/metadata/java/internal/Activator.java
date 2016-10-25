@@ -4,6 +4,7 @@ import org.apache.felix.dm.DependencyActivatorBase;
 import org.apache.felix.dm.DependencyManager;
 import org.osgi.framework.BundleContext;
 
+import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
 import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.internal.parser.RecursiveJavaMetadataParser;
@@ -53,14 +54,15 @@ public class Activator extends DependencyActivatorBase {
                 .setImplementation(JavaApiIndexer.class)
                 .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
                 .add(createServiceDependency().setService(MetadataDao.class).setRequired(true))
+                .add(createServiceDependency().setService(TaskRunnerService.class).setRequired(true))
                 .add(createServiceDependency().setService(JavaMetadataParser.class).setRequired(true)));
 
-        manager.add(createComponent()
+/*        manager.add(createComponent()
                 .setInterface(Plugin.class.getName(), null)
                 .setImplementation(OsgiJavaApiIndexer.class)
                 .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
                 .add(createServiceDependency().setService(MetadataDao.class).setRequired(true))
-                .add(createServiceDependency().setService(JavaMetadataParser.class).setRequired(true)));
+                .add(createServiceDependency().setService(JavaMetadataParser.class).setRequired(true)));*/
 
     }
 

@@ -32,6 +32,11 @@
             <type>pom</type>
         </dependency>
 
+        <dependency>
+            <groupId>cz.zcu.kiv.crce</groupId>
+            <artifactId>crce-concurrency</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
