@@ -51,7 +51,7 @@ public class OsgiJavaApiIndexer extends AbstractActionHandler {
                 toParse.addAll(exported.getClasses());
             }
 
-            Set<Capability> apiCapabilities = metadataParser.parse(toParse);
+            Set<Capability> apiCapabilities = metadataParser.parseIntoCapabilities(toParse);
             for (Capability apiCapability : apiCapabilities) {
                 metadataService.addRootCapability(resource, apiCapability);
             }

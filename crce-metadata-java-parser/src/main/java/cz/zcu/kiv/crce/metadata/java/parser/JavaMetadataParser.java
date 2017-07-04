@@ -7,6 +7,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import cz.zcu.kiv.jacc.javatypes.JClass;
 
 import cz.zcu.kiv.crce.metadata.Capability;
+import cz.zcu.kiv.crce.metadata.Requirement;
 
 /**
  * Service interface of the metadata parser - allows transforming
@@ -23,13 +24,27 @@ public interface JavaMetadataParser {
      * @param classes set of classes to be parsed
      * @return respective capabilities
      */
-    Set<Capability> parse(Set<JClass> classes);
+    Set<Capability> parseIntoCapabilities(Set<JClass> classes);
 
     /**
-     * .The mirror operation to the #parse method.
+     * Transform JaCC #classes into set of Requirements.
+     * @param classes set of classes to be parsed
+     * @return respective requirements
+     */
+    Set<Requirement> parseIntoRequirements(Set<JClass> classes);
+
+    /**
+     * .The mirror operation to the #parseIntoCapabilities method.
      * @param capabilities set of capabilities representing classes to be mapped
      * @return respective JClass instances
      */
-    Set<JClass> map(Set<Capability> capabilities);
+    Set<JClass> mapCapabilities(Set<Capability> capabilities);
+
+    /**
+     * .The mirror operation to the #parseIntoRequirements method.
+     * @param requirements set of requirements representing classes to be mapped
+     * @return respective JClass instances
+     */
+    Set<JClass> mapRequirements(Set<Requirement> requirements);
 
 }
