@@ -89,7 +89,7 @@ public class CompatibilityServiceImpl implements CompatibilityService {
         filter.addAttribute(NsOsgiIdentity.ATTRIBUTE__VERSION, identity.version, Operator.LESS);
 
         logger.debug("Searching for resources with symbolic name: {} and version: {}", identity.symbolicName, identity.version);
-        List<Resource> previous = store.getResources(filter);
+        List<Resource> previous = store.getResources(filter, true);
         logger.debug("{} resources found.", previous.size());
 
         return createMultipleCompatibilityData(resource, previous);
@@ -204,7 +204,7 @@ public class CompatibilityServiceImpl implements CompatibilityService {
             filter.addAttribute(NsOsgiIdentity.ATTRIBUTE__SYMBOLIC_NAME, winnerName);
             filter.addAttribute(NsOsgiIdentity.ATTRIBUTE__VERSION, winnerVersion);
 
-            List<Resource> r = store.getResources(filter);
+            List<Resource> r = store.getResources(filter, true);
             if (r.size() == 1) {
                 return r.get(0);
             }
