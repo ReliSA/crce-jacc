@@ -1,5 +1,7 @@
 package cz.zcu.kiv.crce.metadata.java.namespace;
 
+import java.util.List;
+
 import cz.zcu.kiv.crce.metadata.AttributeType;
 import cz.zcu.kiv.crce.metadata.impl.SimpleAttributeType;
 
@@ -21,6 +23,10 @@ public class NsCrceJavaClassAPI {
      */
 
     public static final AttributeType<String> NAME = new SimpleAttributeType<>("name", String.class);
+
+    public static final AttributeType<String> SUPERCLASS = new SimpleAttributeType<>("superclass", String.class);
+
+    public static final AttributeType<List> INTERFACES = new SimpleAttributeType<>("interfaces", List.class);
 
     public static final AttributeType<Boolean> ABSTRACT = new SimpleAttributeType<>("abstract", Boolean.class);
 

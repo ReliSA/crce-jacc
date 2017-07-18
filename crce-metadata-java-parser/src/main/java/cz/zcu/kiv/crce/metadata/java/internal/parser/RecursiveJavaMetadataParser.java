@@ -101,6 +101,18 @@ public class RecursiveJavaMetadataParser implements JavaMetadataParser {
         }
 
         cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.NAME, jClass.getShortName()));
+        if(jClass.getSuperclass() != null) {
+            cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.SUPERCLASS, jClass.getSuperclass().getName()));
+        }
+
+        if(!jClass.getInterfaces().isEmpty()) {
+            List<String> iNames = new LinkedList<>();
+            for (JClass aClass : jClass.getInterfaces()) {
+                iNames.add(aClass.getName());
+            }
+            cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.INTERFACES, iNames));
+        }
+
         cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.ABSTRACT, jClass.getModifiers().isAbstract()));
         cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.ENUM, jClass.isEnum()));
         cap.setAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.INTERFACE, jClass.isInterface()));
@@ -211,6 +223,20 @@ public class RecursiveJavaMetadataParser implements JavaMetadataParser {
         }
 
         req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.NAME, jClass.getShortName()));
+
+        req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.NAME, jClass.getShortName()));
+        if(jClass.getSuperclass() != null) {
+            req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.SUPERCLASS, jClass.getSuperclass().getName()));
+        }
+
+        if(!jClass.getInterfaces().isEmpty()) {
+            List<String> iNames = new LinkedList<>();
+            for (JClass aClass : jClass.getInterfaces()) {
+                iNames.add(aClass.getName());
+            }
+            req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.INTERFACES, iNames));
+        }
+
         req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.ABSTRACT, jClass.getModifiers().isAbstract()));
         req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.ENUM, jClass.isEnum()));
         req.addAttribute(metadataFactory.createAttribute(NsCrceJavaClassAPI.INTERFACE, jClass.isInterface()));
