@@ -10,7 +10,7 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <jacc.version>1.0.6</jacc.version>
+        <jacc.version>1.0.9.1</jacc.version>
         <obcc.version>1.0.4</obcc.version>
         <namespace>cz.zcu.kiv.crce</namespace>
         <bundle.symbolicName>${bundle.namespace}.${artifactId}</bundle.symbolicName>

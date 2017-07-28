@@ -10,6 +10,8 @@ import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.Resource;
 import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.JavaApiExtractor;
+import cz.zcu.kiv.crce.metadata.java.inheritance.JavaTypeBuilder;
+import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.repository.Store;
 import cz.zcu.kiv.crce.repository.plugins.AbstractActionHandler;
 
@@ -25,17 +27,19 @@ public class JavaApiIndexer extends AbstractActionHandler {
 
     private volatile JavaApiExtractor extractor; //DI
     private volatile MetadataDao resourceDAO; //DI
+    private volatile MetadataService metadataService;
+    private volatile JavaTypeBuilder typeBuilder;
     private volatile TaskRunnerService taskRunnerService;   /* injected by dependency manager */
 
     @Override
     public Resource afterPutToStore(Resource resource, Store store) {
         logger.debug("Java provided API Extraction task about to schedule for {}.", resource.getId());
-        Task task = new JavaApiExtractionTask("JAVA:" + resource.getId(), resource, JavaApiExtractionTask.Target.JAVA_PROVIDED, extractor, resourceDAO);
+        Task task = new JavaApiExtractionTask("JAVA:" + resource.getId(), resource, JavaApiExtractionTask.Target.JAVA_PROVIDED, extractor, resourceDAO, metadataService, typeBuilder);
         taskRunnerService.scheduleTask(task);
         logger.debug("Java provided API Extraction task scheduled for {}.", resource.getId());
 
         logger.debug("Java required API Extraction task about to schedule for {}.", resource.getId());
-        task = new JavaApiExtractionTask("JAVA:" + resource.getId(), resource, JavaApiExtractionTask.Target.JAVA_REQUIRED, extractor, resourceDAO);
+        task = new JavaApiExtractionTask("JAVA:" + resource.getId(), resource, JavaApiExtractionTask.Target.JAVA_REQUIRED, extractor, resourceDAO, metadataService, typeBuilder);
         taskRunnerService.scheduleTask(task);
         logger.debug("Java required API Extraction task scheduled for {}.", resource.getId());
 
@@ -50,14 +54,14 @@ public class JavaApiIndexer extends AbstractActionHandler {
         List<Resource> resources = resourceDAO.loadResourcesWithoutCategory(JavaApiExtractor.CATEGORY_PROVIDED, false);
 
         logger.debug("Bulk Java API Extraction task about to schedule for {} resources.", resources.size());
-        Task task = new JavaApiExtractionTask("JAVA API - INIT:", resources, JavaApiExtractionTask.Target.JAVA_PROVIDED, extractor, resourceDAO);
+        Task task = new JavaApiExtractionTask("JAVA API - INIT:", resources, JavaApiExtractionTask.Target.JAVA_PROVIDED, extractor, resourceDAO, metadataService, typeBuilder);
         taskRunnerService.scheduleTask(task);
         logger.debug("Bulk Java API Extraction task scheduled for {} resources.", resources.size());
 
         resources = resourceDAO.loadResourcesWithoutCategory(JavaApiExtractor.CATEGORY_REQUIRED, false);
 
         logger.debug("Bulk Java API Extraction task about to schedule for {} resources.", resources.size());
-        task = new JavaApiExtractionTask("JAVA API - INIT:", resources, JavaApiExtractionTask.Target.JAVA_REQUIRED, extractor, resourceDAO);
+        task = new JavaApiExtractionTask("JAVA API - INIT:", resources, JavaApiExtractionTask.Target.JAVA_REQUIRED, extractor, resourceDAO, metadataService, typeBuilder);
         taskRunnerService.scheduleTask(task);
         logger.debug("Bulk Java API Extraction task scheduled for {} resources.", resources.size());
     }

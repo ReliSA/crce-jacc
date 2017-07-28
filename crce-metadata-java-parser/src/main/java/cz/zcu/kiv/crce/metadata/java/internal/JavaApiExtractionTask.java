@@ -3,10 +3,13 @@ package cz.zcu.kiv.crce.metadata.java.internal;
 import java.util.Collections;
 import java.util.List;
 
+import cz.zcu.kiv.crce.concurrency.model.ChainableTask;
 import cz.zcu.kiv.crce.concurrency.model.Task;
 import cz.zcu.kiv.crce.metadata.Resource;
 import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.JavaApiExtractor;
+import cz.zcu.kiv.crce.metadata.java.inheritance.JavaTypeBuilder;
+import cz.zcu.kiv.crce.metadata.service.MetadataService;
 
 /**
  * Background task for calculation of compatibility data for a Resource.
@@ -17,7 +20,7 @@ import cz.zcu.kiv.crce.metadata.java.JavaApiExtractor;
  *
  * @author Jakub Danek
  */
-public class JavaApiExtractionTask extends Task<Object> {
+public class JavaApiExtractionTask extends ChainableTask<Object> {
 
     public enum Target {
         JAVA_PROVIDED,
@@ -30,27 +33,34 @@ public class JavaApiExtractionTask extends Task<Object> {
     private MetadataDao resourceDAO;
     private JavaApiExtractor extractor;
 
+    private MetadataService metadataService;
+    private JavaTypeBuilder typeBuilder;
+
     private final Target target;
 
     /**
      * @param id       ID of the task, for tracking
      * @param resource resource for which the compatibility data shall be computed
+     * @param typeBuilder
+     * @param metadataService
      */
-    public JavaApiExtractionTask(String id, Resource resource, Target target, JavaApiExtractor extractor, MetadataDao resourceDAO) {
-        this(id, Collections.singletonList(resource), target, extractor, resourceDAO);
+    public JavaApiExtractionTask(String id, Resource resource, Target target, JavaApiExtractor extractor, MetadataDao resourceDAO, MetadataService metadataService, JavaTypeBuilder typeBuilder) {
+        this(id, Collections.singletonList(resource), target, extractor, resourceDAO, metadataService, typeBuilder);
     }
 
-    public JavaApiExtractionTask(String id, List<Resource> resources, Target target, JavaApiExtractor extractor, MetadataDao resourceDAO) {
+    public JavaApiExtractionTask(String id, List<Resource> resources, Target target, JavaApiExtractor extractor, MetadataDao resourceDAO, MetadataService metadataService, JavaTypeBuilder typeBuilder) {
         super(id, "Extracts java api from the given resource.", "crce-api-java-extractor");
         this.resources = resources;
         this.extractor = extractor;
         this.resourceDAO = resourceDAO;
 
         this.target = target;
+        this.metadataService = metadataService;
+        this.typeBuilder = typeBuilder;
     }
 
     @Override
-    protected Object run() throws Exception {
+    protected Task<Object> doWork() throws Exception {
         for (Resource resource : resources) {
             synchronized (resource) {
                 resource = resourceDAO.loadResource(resource.getId(), true);
@@ -62,7 +72,7 @@ public class JavaApiExtractionTask extends Task<Object> {
             }
         }
 
-        return true;
+        return target == Target.JAVA_PROVIDED ? new JavaTypeViewBuilderTask("JAVA TYPE BUILD", resourceDAO, metadataService, typeBuilder, resources) : null;
     }
 
     private Resource extractData(Resource resource) {

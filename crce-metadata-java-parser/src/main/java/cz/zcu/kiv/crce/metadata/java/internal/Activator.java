@@ -8,10 +8,16 @@ import cz.zcu.kiv.crce.concurrency.service.TaskRunnerService;
 import cz.zcu.kiv.crce.metadata.MetadataFactory;
 import cz.zcu.kiv.crce.metadata.dao.MetadataDao;
 import cz.zcu.kiv.crce.metadata.java.JavaApiExtractor;
+import cz.zcu.kiv.crce.metadata.java.inheritance.JavaTypeBuilder;
+import cz.zcu.kiv.crce.metadata.java.internal.inheritance.BruteForceParentGroupFinder;
+import cz.zcu.kiv.crce.metadata.java.internal.inheritance.DefaultJavaTypeBuilder;
+import cz.zcu.kiv.crce.metadata.java.internal.inheritance.JavaTypeViewBuilder;
+import cz.zcu.kiv.crce.metadata.java.internal.inheritance.ParentGroupFinder;
 import cz.zcu.kiv.crce.metadata.java.internal.parser.RecursiveJavaMetadataParser;
 import cz.zcu.kiv.crce.metadata.java.parser.JavaMetadataParser;
 import cz.zcu.kiv.crce.metadata.service.MetadataService;
 import cz.zcu.kiv.crce.plugin.Plugin;
+import cz.zcu.kiv.crce.repository.Store;
 
 /**
  * Activator for the CRCE Metadata Java Parser bundle.
@@ -57,10 +63,30 @@ public class Activator extends DependencyActivatorBase {
                 .add(createServiceDependency().setService(JavaMetadataParser.class).setRequired(true)));
 
         manager.add(createComponent()
+                .setInterface(ParentGroupFinder.class.getName(), null)
+                .setImplementation(BruteForceParentGroupFinder.class));
+
+        manager.add(createComponent()
+                .setInterface(JavaTypeViewBuilder.class.getName(), null)
+                .setImplementation(JavaTypeViewBuilder.class)
+                .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
+                .add(createServiceDependency().setService(MetadataFactory.class).setRequired(true)));
+
+        manager.add(createComponent()
+                .setInterface(JavaTypeBuilder.class.getName(), null)
+                .setImplementation(DefaultJavaTypeBuilder.class)
+                .add(createServiceDependency().setService(ParentGroupFinder.class).setRequired(true))
+                .add(createServiceDependency().setService(Store.class).setRequired(true))
+                .add(createServiceDependency().setService(JavaTypeViewBuilder.class).setRequired(true))
+                .add(createServiceDependency().setService(MetadataFactory.class).setRequired(true)));
+
+        manager.add(createComponent()
                 .setInterface(Plugin.class.getName(), null)
                 .setImplementation(JavaApiIndexer.class)
                 .add(createServiceDependency().setService(JavaApiExtractor.class).setRequired(true))
+                .add(createServiceDependency().setService(JavaTypeBuilder.class).setRequired(true))
                 .add(createServiceDependency().setService(MetadataDao.class).setRequired(true))
+                .add(createServiceDependency().setService(MetadataService.class).setRequired(true))
                 .add(createServiceDependency().setService(TaskRunnerService.class).setRequired(true)));
 
 /*        manager.add(createComponent()
