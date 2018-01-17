@@ -5,7 +5,7 @@ Project with CRCE plugins depending on JaCC.
 ## Prerequisities
 
 - [CRCE](https://github.com/ReliSA/crce) installed
-- ReliSA Maven repository in `settings.xml` (ask Premek Brada for details)
+- ReliSA JaCC Maven repository in `settings.xml` (ask Premek Brada for details)
 
 ## Build
 
